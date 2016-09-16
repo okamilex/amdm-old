@@ -2,23 +2,22 @@
     ViewBag.Title = "Home Page";
 }
 <asp:ListView runat="server" ID="ListView1"
-              DataSourceID="SqlDataSource1"
-              GroupItemCount="5">
+             ItemType="AMDM1.Controllers.Performer" SelectMethod="GetPerformers">
     <LayoutTemplate>
-        <table runat="server" id="table1">
-            <tr runat="server" id="groupPlaceholder"></tr>
+        <table runat="server" id=" table1">
+            <tr runat="server" id="itemPlaceholder"></tr>
         </table>
+        <asp:DataPager runat="server" ID="DataPager" PageSize="5">
+            <Fields>
+                <asp:NumericPagerField ButtonCount="10"
+                                       PreviousPageText="<--"
+                                       NextPageText="-->" />
+            </Fields>
+        </asp:DataPager>
     </LayoutTemplate>
-    <GroupTemplate>
-        <tr runat="server" id="tableRow">
-            <td runat="server" id="itemPlaceholder" />
-        </tr>
-    </GroupTemplate>
     <ItemTemplate>
-        <td runat="server">
-            <%-- Data-bound content. --%>
-            <asp:Label ID="NameLabel" runat="server"
-                       Text='<%#Eval("Name") %>' />
-        </td>
+        <tr runat="server">
+            
+        </tr>
     </ItemTemplate>
 </asp:ListView>
