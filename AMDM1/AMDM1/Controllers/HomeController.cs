@@ -11,39 +11,22 @@ namespace AMDM1.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            var db = new AmdmContext();
+            var per = db.Performers;
+            return View(per);
         }
-
-        public partial class ProductList : System.Web.UI.Page
+        public ActionResult Performer(int id=0)
         {
-            protected void Page_Load(object sender, EventArgs e)
-            {
-            }
+            var db = new AmdmContext();
+            var per = db.Performers.Where(x => x.Id == id);
+            return View(per.First());
+        }
+        public ActionResult Song(int id=0)
+        {
+            var db = new AmdmContext();
+            var song = db.Songs.Where(x => x.Id == id);
+            return View(song.First());
             
-        public IQueryable<Performer> GetPerformers([QueryString("id")] int? categoryId)
-            {
-                var _db = new AmdmContext();
-                IQueryable<Performer> query = _db.Performers;
-                if (categoryId.HasValue && categoryId > 0)
-                {
-                    query = query.Where(p => p.Id == categoryId);
-                }
-                return query; }
-        }
-    
-
-    public ActionResult About()
-        {
-            ViewBag.Message = "Your application description page.";
-
-            return View();
-        }
-
-        public ActionResult Contact()
-        {
-            ViewBag.Message = "Your contact page.";
-
-            return View();
-        }
+        }       
     }
 }

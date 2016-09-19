@@ -1,23 +1,17 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿@Model List<AMDM1.Controllers.Performer>
+@{
+        ViewBag.Title = "Home Page";
+ }
+ 
+               <br />
+@foreach (var per in Model)
+{
+  
+    <a href='@Url.Action("Performer", "Home", new { per.Id })'> @per.Name @per.Songs.Count </a>  
+    <br />
 }
-<asp:ListView runat="server" ID="ListView1"
-             ItemType="AMDM1.Controllers.Performer" SelectMethod="GetPerformers">
-    <LayoutTemplate>
-        <table runat="server" id=" table1">
-            <tr runat="server" id="itemPlaceholder"></tr>
-        </table>
-        <asp:DataPager runat="server" ID="DataPager" PageSize="5">
-            <Fields>
-                <asp:NumericPagerField ButtonCount="10"
-                                       PreviousPageText="<--"
-                                       NextPageText="-->" />
-            </Fields>
-        </asp:DataPager>
-    </LayoutTemplate>
-    <ItemTemplate>
-        <tr runat="server">
-            
-        </tr>
-    </ItemTemplate>
-</asp:ListView>
+
+
+
+
+
