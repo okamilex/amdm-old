@@ -1,0 +1,55 @@
+﻿<table class="table table-striped">
+    <thead>
+        <tr>
+            <th id="id">
+                id
+            </th>
+            <th id="name">
+                Name
+            </th>
+            <th id="songs">
+                Songs
+            </th>
+        </tr>
+    </thead>
+    <tbody id="list">
+        @foreach (var per in Model.Performers)
+            {
+            <tr onclick="window.location.href='@Url.Action("Performer", "Home", new { per.Id })';  return false">
+                <td>@per.Id</td>
+                <td>@per.Name</td>
+                <td>@per.Songs.Count</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<table id="pages" class="table table-striped">
+    <tr class="text-center">
+        <td id="first" onclick="@Model.Set.Page = 1; return false">
+
+            @using (Ajax.BeginForm("PerformersList", new { type = Model.Set.SortType, page = 1 }, new AjaxOptions { UpdateTargetId = "test" }))
+            {
+                <input type="submit" value="<<" />
+            }
+        </td>
+        <td id="prev">
+            @using (Ajax.BeginForm("PerformersList", new { type = Model.Set.SortType, page = Model.Set.Page - 1 }, new AjaxOptions { UpdateTargetId = "test" }))
+            {
+                <input type="submit" value="<"  />
+            }
+        </td>
+        <td id="next">
+            @using (Ajax.BeginForm("PerformersList", new { type = Model.Set.SortType, page = Model.Set.Page + 1 }, new AjaxOptions { UpdateTargetId = "test" }))
+            {
+                <input type="submit" value=">"  />
+            }
+        </td>
+        <td id="last">
+            @using (Ajax.BeginForm("PerformersList", new { type = Model.Set.SortType, page = Model.Set.MaxPage  }, new AjaxOptions { UpdateTargetId = "test" }))
+            {
+                <input type="submit" value=">>" />
+            }
+        </td>
+    </tr>
+</table>
+
