@@ -232,7 +232,11 @@
     </Compile>
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\IdentityModels.cs" />
+    <Compile Include="Models\IndexModel.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MyPerformer.cs" />
+    <Compile Include="Models\MyPerformerWithSongs.cs" />
+    <Compile Include="Models\MySong.cs" />
     <Compile Include="Models\PerformersModel.cs" />
     <Compile Include="Models\Set.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

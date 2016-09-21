@@ -5,9 +5,9 @@ using System.Web;
 
 namespace AMDM1.Models
 {
-    public class PerformersModel
+    public class IndexModel
     {
-        public MyPerformerWithSongs Performer { get; set; }
+        public List<MyPerformer> Performers { get; set; }
         public Set Set { get; set; }
     }
 }

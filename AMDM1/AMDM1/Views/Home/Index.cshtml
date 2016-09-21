@@ -9,13 +9,25 @@
         <thead>
             <tr>
                 <th id="id">
-                    id
+                    @using (Ajax.BeginForm("PerformersList", new { type = 1, page = 1 }, new AjaxOptions { UpdateTargetId = "test" }))
+                    {
+                        <input type="submit" class="btn btn-link" value="#" />
+                    }
+                </th>
+                <th>
+                    <input type="submit" class="btn btn-link" value="Image" />
                 </th>
                 <th id="name">
-                    Name
+                    @using (Ajax.BeginForm("PerformersList", new { type = 2, page = 1 }, new AjaxOptions { UpdateTargetId = "test" }))
+                    {
+                        <input type="submit" class="btn btn-link" value="Name" />
+                    }
                 </th>
                 <th id="songs">
-                    Songs
+                    @using (Ajax.BeginForm("PerformersList", new { type = 3, page = 1 }, new AjaxOptions { UpdateTargetId = "test" }))
+                    {
+                        <input type="submit" class="btn btn-link" value="Songs" />
+                    }
                 </th>
             </tr>
         </thead>
@@ -24,8 +36,9 @@
             {
                 <tr onclick="window.location.href='@Url.Action("Performer", "Home", new { per.Id })';  return false">
                     <td>@per.Id</td>
+                    <td><img src=@per.ImageLink /></td>
                     <td>@per.Name</td>
-                    <td>@per.Songs.Count</td>
+                    <td>@per.SongAmount</td>
                 </tr>
             }
         </tbody>
@@ -36,25 +49,25 @@
 
                 @using (Ajax.BeginForm("PerformersList", new { type = Model.Set.SortType, page = 1 }, new AjaxOptions { UpdateTargetId = "test" }))
             {
-                    <input type="submit" value="<<" />
+                    <input type="submit" class="btn btn-link" value="<<" />
                 }
             </td>
             <td id="prev">
                 @using (Ajax.BeginForm("PerformersList", new { type = Model.Set.SortType, page = Model.Set.Page - 1 }, new AjaxOptions { UpdateTargetId = "test" }))
             {
-                    <input type="submit" value="<" />
+                    <input type="submit" class="btn btn-link" value="<" />
                 }
             </td>
             <td id="next">
                 @using (Ajax.BeginForm("PerformersList", new { type = Model.Set.SortType, page = Model.Set.Page + 1 }, new AjaxOptions { UpdateTargetId = "test" }))
             {
-                    <input type="submit" value=">" />
+                    <input type="submit" class="btn btn-link" value=">" />
                 }
             </td>
             <td id="last">
                 @using (Ajax.BeginForm("PerformersList", new { type = Model.Set.SortType, page = Model.Set.MaxPage }, new AjaxOptions { UpdateTargetId = "test" }))
                 {
-                    <input type="submit" value=">>" />
+                    <input type="submit" class="btn btn-link" value=">>" />
                 }
             </td>
         </tr>
