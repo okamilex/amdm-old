@@ -1,0 +1,154 @@
+﻿@model AmdmWeb.Models.Home.HomePageModel
+@{
+    ViewBag.Title = "Home Page";
+}
+
+<br />
+<div id="test">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th id="id">
+                    @if (Model.SortAndPageData.PerformersSortingType == AmdmData.Enums.PerformersSortingTypes.ById)
+                    {
+                        using (Ajax.BeginForm("PerformersPage", new { performersSortingType = AmdmData.Enums.PerformersSortingTypes.ByIdBack, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                        {
+                            <input type="submit" class="btn btn-link" value="#" />
+                        }
+                    }
+                    else
+                    {
+                        using (Ajax.BeginForm("PerformersPage", new { performersSortingType = AmdmData.Enums.PerformersSortingTypes.ById, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                        {
+                            <input type="submit" class="btn btn-link" value="#" />
+                        }
+                    }                    
+                </th>
+                <th>
+                    <input type="submit" class="btn btn-link" value="Image" />
+                </th>
+                <th id="name">
+                    @if (Model.SortAndPageData.PerformersSortingType == AmdmData.Enums.PerformersSortingTypes.ByName)
+                    {
+                        using (Ajax.BeginForm("PerformersPage", new { performersSortingType = AmdmData.Enums.PerformersSortingTypes.ByNameBack, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                        {
+                            <input type="submit" class="btn btn-link" value="Name" />
+                        }
+                    }
+                    else
+                    {
+                        using (Ajax.BeginForm("PerformersPage", new { performersSortingType = AmdmData.Enums.PerformersSortingTypes.ByName, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                        {
+                            <input type="submit" class="btn btn-link" value="Name" />
+                        }
+                    }
+                    
+                </th>
+                <th id="songs">
+                    @if (Model.SortAndPageData.PerformersSortingType == AmdmData.Enums.PerformersSortingTypes.BySongCount)
+                    {
+                        using (Ajax.BeginForm("PerformersPage", new { performersSortingType = AmdmData.Enums.PerformersSortingTypes.BySongCountBack, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                        {
+                            <input type="submit" class="btn btn-link" value="Songs" />
+                        }
+                    }
+                    else
+                    {
+                        using (Ajax.BeginForm("PerformersPage", new { performersSortingType = AmdmData.Enums.PerformersSortingTypes.BySongCount, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                        {
+                            <input type="submit" class="btn btn-link" value="Songs" />
+                        }
+                    }
+                    
+                </th>
+            </tr>
+        </thead>
+        <tbody id="list">
+            @foreach (var per in Model.Performers)
+            {
+                <tr onclick="window.location.href='@Url.Action("Index", "Performer", new { per.Id })';  return false">
+                    <td>@per.Id</td>
+                    <td><img src=@per.ImageLink /></td>
+                    <td>@per.Name</td>
+                    <td>@per.SongCount</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <table id="pages" class="table table-striped">
+        <tr class="text-center">
+            <td id="first">
+                @if(Model.SortAndPageData.PerformersPageNumber == 1)
+                {
+                    using (Ajax.BeginForm("PerformersPage", new { performersSortingType = Model.SortAndPageData.PerformersSortingType, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                    {
+                        <input type="submit" class="btn btn-link" value="<<" />
+                    }
+
+                }
+                else
+                {
+                    using (Ajax.BeginForm("PerformersPage", new { performersSortingType = Model.SortAndPageData.PerformersSortingType, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                    {
+                        <input type="submit" class="btn btn-link" value="<<" />
+                    }
+                }
+                
+            </td>
+            <td id="prev">
+                @if (Model.SortAndPageData.PerformersPageNumber == 1)
+                {
+                    using (Ajax.BeginForm("PerformersPage", new { performersSortingType = Model.SortAndPageData.PerformersSortingType, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = Model.SortAndPageData.PerformersPageNumber - 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                    {
+                        <input type="submit" class="btn btn-link" value="<" />
+                    }
+
+                }
+                else
+                {
+                    using (Ajax.BeginForm("PerformersPage", new { performersSortingType = Model.SortAndPageData.PerformersSortingType, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = Model.SortAndPageData.PerformersPageNumber - 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                    {
+                        <input type="submit" class="btn btn-link" value="<" />
+                    }
+                }
+                
+            </td>
+            <td id="next">
+                @if (Model.SortAndPageData.PerformersPageNumber == Model.SortAndPageData.LasPageNumber)
+                {
+                    using (Ajax.BeginForm("PerformersPage", new { performersSortingType = Model.SortAndPageData.PerformersSortingType, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = Model.SortAndPageData.PerformersPageNumber + 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                    {
+                        <input type="submit" class="btn btn-link" value=">" />
+                    }
+
+                }
+                else
+                {
+                    using (Ajax.BeginForm("PerformersPage", new { performersSortingType = Model.SortAndPageData.PerformersSortingType, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = Model.SortAndPageData.PerformersPageNumber + 1, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                    {
+                        <input type="submit" class="btn btn-link" value=">" />
+                    }
+                }
+                
+            </td>
+            <td id="last">
+                @if (Model.SortAndPageData.PerformersPageNumber == Model.SortAndPageData.LasPageNumber)
+                {
+                    using (Ajax.BeginForm("PerformersPage", new { performersSortingType = Model.SortAndPageData.PerformersSortingType, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = Model.SortAndPageData.LasPageNumber, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                    {
+                        <input type="submit" class="btn btn-link" value=">>" />
+                    }
+
+                }
+                else
+                {
+                    using (Ajax.BeginForm("PerformersPage", new { performersSortingType = Model.SortAndPageData.PerformersSortingType, songSortingType = Model.SortAndPageData.SongsSortingType, performersPageNumber = Model.SortAndPageData.LasPageNumber, songPageNumber = Model.SortAndPageData.SongsPageNumber }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                    {
+                        <input type="submit" class="btn btn-link" value=">>" />
+                    }
+                }
+                
+            </td>
+        </tr>
+    </table>
+</div>
