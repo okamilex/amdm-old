@@ -1,74 +1,143 @@
-﻿
+﻿@model AMDM1.Controllers.Song
 @{
     ViewBag.Title = "Song";
 }
+<nav class="breadcrumb">
+    <a class="breadcrumb-item" href="@Url.Action("Index", "Home")">Main</a>
+    /
+    <a class="breadcrumb-item" href="@Url.Action("Performer", "Home", new { Model.Performer.Id})">@Model.Performer.Name</a>
+    /
+    <span class="breadcrumb-item active">@Model.Name</span>
+</nav>
 
-<div>
-    <h2>@Model.Name</h2>
-    <button type="button" class="btn btn-info btn-lg" data-toggle="modal" data-target="#myModal">Edit</button>
+<div id="song">
+    <div>
 
-    
-    <div id="myModal" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>       
-                    <div class="form-group">
-                        <label for="usr">Name:</label>
-                        <input type="text" class="form-control" value="@Model.Name" id="name">
-                    </div>             
-                   
-                </div>
-                <div class="modal-body">
-                    
-                    <div class="form-group">  
-                        <label for="text">Text:</label>                      
-                        <textarea class="form-control" rows="20" cols="50" id="text"></textarea>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
+        <h2>
+            @Model.Name
+            <input type="submit" class="col-xs-12 btn btn-info btn-sm pull-right" data-toggle="modal" data-target="#myModal" value="Edit" />
+        </h2>
+        <div class="container">
+            <div class="row">
+                @using (Ajax.BeginForm("PrevSong", new { songId = Model.Id }, new AjaxOptions { UpdateTargetId = "song", OnSuccess = "OnSuccess", HttpMethod = "Get" }))
+                {
+                    <input type="submit" class="pull-left col-xs-4  btn btn-default" value="<" />
+                }
+                @using (Ajax.BeginForm("NextSong", new { songId = Model.Id }, new AjaxOptions { UpdateTargetId = "song", OnSuccess = "OnSuccess", HttpMethod = "Get" }))
+                {
+                    <input type="submit" class="pull-right col-xs-4 btn btn-default" value=">" />
+                }
             </div>
+        </div>
 
+
+
+
+        <div id="myModal" class="modal fade" role="dialog">
+            <div id="editModal" class="modal-dialog modal-lg">
+                <div class="modal-content">
+
+
+                    @using (Html.BeginForm())
+                    {
+
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+                            <h4 class="modal-title">
+                                @Html.TextBoxFor(m => m.Name)
+
+                            </h4>
+                        </div>
+                            <div class="modal-body">
+                                <script>
+                                    var engine = new Bloodhound({
+                                        local: [{ value: 'red' }, { value: 'blue' }, { value: 'green' }, { value: 'yellow' }, { value: 'violet' }, { value: 'brown' }, { value: 'purple' }, { value: 'black' }, { value: 'white' }],
+                                        datumTokenizer: function (d) {
+                                            return Bloodhound.tokenizers.whitespace(d.value);
+                                        },
+                                        queryTokenizer: Bloodhound.tokenizers.whitespace
+                                    });
+
+                                    engine.initialize();
+
+                                    $('#tokenfield-typeahead').tokenfield({
+                                        typeahead: [null, { source: engine.ttAdapter() }]
+                                    });
+
+                                </script>
+                                <input type="text" class="form-control" id="tokenfield-typeahead" value="red,green,blue" />
+                                <p>
+                                    @Html.TextAreaFor(m => m.Text, new { @class = "form-control", @rows = "20" })
+
+                                </p>
+                            </div>
+                    }
+                    <div class="modal-footer">
+
+                        @using (Ajax.BeginForm("SaveSong", new AjaxOptions { }))
+                        {
+                            <input type="submit" class="btn btn-success" value="Save" />
+                        }
+
+
+
+
+                    </div>
+
+                </div>
+
+
+            </div>
         </div>
     </div>
-</div>
 
 
 
 
-<div id="carousel-example-generic" class="carousel slide col-lg-12">
-   
-    <div class="carousel-inner" role="listbox">
-        <div class="item active">
-            <table>
-                <tr>
-                    <td>
-                        @Model.Text
-                    </td>
-                    <td>
-                        @foreach (var chord in Model.Chords)
-                        {
-                            <h6>@chord.Name</h6>
-                            <img src=@chord.ImageLink />
-                        }
-                    </td>
-                </tr>
-            </table>            
-        </div>        
+
+
+    <div id="carousel-example-generic" class="carousel slide col-lg-12">
+
+        <div class="carousel-inner" role="listbox">
+            <div class="item active">
+                <table class="table table-striped">
+                    <tr>
+                        <td>
+                            <pre>@Model.Text</pre>
+                        </td>
+                        <td>
+                            <div class="container">
+                                <div class="row">
+                                    @foreach (var chord in Model.Chords)
+                                    {
+                                        <div class="col-xs-4">
+                                            <h6>@chord.Name</h6>
+                                            <img src=@chord.ImageLink />
+                                        </div>
+                                    }
+                                </div>
+                            </div>
+
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
     </div>
-    <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-        <span class="sr-only">Previous</span>
-    </a>
-    <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-        <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-        <span class="sr-only">Next</span>
-    </a>
+
+    <script type="text/javascript">
+
+        function OnSuccess(data) {
+
+            history.pushState(null, null, '@Url.Action("Song", "Home", new { id = @Model.Id })');
+        }
+
+
+    </script>
+
+
+
+
 </div>
-
-
-

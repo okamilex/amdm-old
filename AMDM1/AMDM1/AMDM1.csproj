@@ -324,6 +324,12 @@
     <Content Include="Views\Home\Performer.cshtml" />
     <Content Include="Views\Home\Song.cshtml" />
     <Content Include="Views\Home\PerformersList.cshtml" />
+    <Content Include="Views\Home\PrevSong.cshtml" />
+    <Content Include="Views\Home\NextSong.cshtml" />
+    <Content Include="Views\Home\EditSong.cshtml" />
+    <Content Include="Views\Home\SaveSong.cshtml" />
+    <Content Include="Views\Home\Edit.cshtml" />
+    <Content Include="Views\Home\SongList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

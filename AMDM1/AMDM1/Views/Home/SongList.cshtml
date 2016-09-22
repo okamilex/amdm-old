@@ -1,0 +1,64 @@
+﻿<table class="table table-striped">
+    <thead>
+        <tr>
+            <th id="id">
+                @using (Ajax.BeginForm("SongList", new { performerId = Model.Performer.Id, type = 1, page = 1 }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                {
+                    <input type="submit" class="btn btn-link" value="#" />
+                }
+            </th>
+
+            <th id="name">
+                @using (Ajax.BeginForm("SongList", new { performerId = Model.Performer.Id, type = 2, page = 1 }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                {
+                    <input type="submit" class="btn btn-link" value="Name" />
+                }
+            </th>
+            <th id="songs">
+                @using (Ajax.BeginForm("SongList", new { performerId = Model.Performer.Id, type = 3, page = 1 }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+                {
+                    <input type="submit" class="btn btn-link" value="Chords" />
+                }
+            </th>
+        </tr>
+    </thead>
+    <tbody id="list">
+        @foreach (var song in Model.Performer.Songs)
+            {
+            <tr onclick="window.location.href='@Url.Action("Song", "Home", new { song.Id })';  return false">
+                <td>@song.Id</td>
+                <td>@song.Name</td>
+                <td>@song.ChordsAmount</td>
+            </tr>
+        }
+    </tbody>
+</table>
+<table id="pages" class="table table-striped">
+    <tr class="text-center">
+        <td id="first" onclick="@Model.Set.Page = 1; return false">
+
+            @using (Ajax.BeginForm("SongList", new { performerId = Model.Performer.Id, type = Model.Set.SortType, page = 1 }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+            {
+                <input type="submit" class="btn btn-link" value="<<" />
+            }
+        </td>
+        <td id="prev">
+            @using (Ajax.BeginForm("SongList", new { performerId = Model.Performer.Id, type = Model.Set.SortType, page = Model.Set.Page - 1 }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+            {
+                <input type="submit" class="btn btn-link" value="<" />
+            }
+        </td>
+        <td id="next">
+            @using (Ajax.BeginForm("SongList", new { performerId = Model.Performer.Id, type = Model.Set.SortType, page = Model.Set.Page + 1 }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+            {
+                <input type="submit" class="btn btn-link" value=">" />
+            }
+        </td>
+        <td id="last">
+            @using (Ajax.BeginForm("SongList", new { performerId = Model.Performer.Id, type = Model.Set.SortType, page = Model.Set.MaxPage }, new AjaxOptions { UpdateTargetId = "test", HttpMethod = "Get" }))
+            {
+                <input type="submit" class="btn btn-link" value=">>" />
+            }
+        </td>
+    </tr>
+</table>
