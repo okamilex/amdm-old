@@ -12,6 +12,8 @@ namespace AmdmData.Enums
         ByChordCount,
         ByIdBack,
         ByNameBack,
-        ByChordCountBack
+        ByChordCountBack,
+        ByViews,
+        ByViewsBack
     }
 }

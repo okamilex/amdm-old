@@ -10,13 +10,21 @@ namespace AmdmLogic
 {
     public class Logic
     {
-        public static List<Performers> GetListOfPerformers(PerformersSortingTypes performersSortingType, int performersPageNumber, int count)
+        public static List<Performers> GetPageOfPerformerList(PerformersSortingTypes performersSortingType, int performersPageNumber, int pageSize)
         {
-            return DataAndInfo.GetListOfPerformers(performersSortingType, performersPageNumber, count);
+            return PerformerData.GetPageOfPerformerList(performersSortingType, performersPageNumber, pageSize);
         }
         public static int GetPerformersCount()
         {
-            return DataAndInfo.GetPerformersCount();
+            return PerformerData.GetPerformersCount();
+        }
+        public static Performers GetPerformerById(int performerId)
+        {
+            return PerformerData.GetPerformerById(performerId);
+        }
+        public static List<Songs> GetPageOfSongList(int performerId, SongsSortingTypes songsSortingType, int songPageNumber, int pageSize)
+        {
+            return PerformerData.GetPageOfSongList(performerId, songsSortingType, songPageNumber, pageSize);
         }
     }
 }

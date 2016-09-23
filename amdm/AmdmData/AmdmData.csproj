@@ -70,10 +70,11 @@
       <DependentUpon>AmdmModel.tt</DependentUpon>
     </Compile>
     <Compile Include="Class1.cs" />
+    <Compile Include="Const.cs" />
     <Compile Include="C__MigrationHistory.cs">
       <DependentUpon>AmdmModel.tt</DependentUpon>
     </Compile>
-    <Compile Include="DataAndInfo.cs" />
+    <Compile Include="PerformerData.cs" />
     <Compile Include="Enums\PerformersSortingTypes.cs" />
     <Compile Include="Enums\SongsSortingTypes.cs" />
     <Compile Include="Performers.cs">
