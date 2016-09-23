@@ -6,9 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using AMDM1.Models;
+using AmdmWeb.Models;
 
-namespace AMDM1.Controllers
+namespace AmdmWeb.Controllers
 {
     [Authorize]
     public class ManageController : Controller

@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Mvc;
 
-namespace AMDM1
+namespace AmdmWeb
 {
     public class FilterConfig
     {

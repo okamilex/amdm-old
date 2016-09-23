@@ -4,9 +4,9 @@ using System.Linq;
 using System.Web;
 using System.Web.ModelBinding;
 using System.Web.Mvc;
-using AMDM1.Models;
+using AmdmWeb.Models;
 
-namespace AMDM1.Controllers
+namespace AmdmWeb.Controllers
 {
     public class HomeController : Controller
     {
@@ -32,7 +32,7 @@ namespace AMDM1.Controllers
 
         
         [HttpPost]
-        public ActionResult SaveSong(AMDM1.Controllers.Song model)
+        public ActionResult SaveSong(AmdmWeb.Controllers.Song model)
         {
             
             

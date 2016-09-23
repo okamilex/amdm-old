@@ -1,7 +1,7 @@
 ﻿using System.Web;
 using System.Web.Optimization;
 
-namespace AMDM1
+namespace AmdmWeb
 {
     public class BundleConfig
     {

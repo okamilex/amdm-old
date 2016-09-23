@@ -1,8 +1,8 @@
 ﻿using Microsoft.Owin;
 using Owin;
 
-[assembly: OwinStartupAttribute(typeof(AMDM1.Startup))]
-namespace AMDM1
+[assembly: OwinStartupAttribute(typeof(AmdmWeb.Startup))]
+namespace AmdmWeb
 {
     public partial class Startup
     {

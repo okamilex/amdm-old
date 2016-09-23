@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AMDM1.Controllers
+namespace AmdmWeb.Controllers
 {
     using System;
     using System.Data.Entity;
