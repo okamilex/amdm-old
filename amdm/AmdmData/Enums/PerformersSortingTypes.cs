@@ -6,11 +6,9 @@ using System.Web;
 namespace AmdmData.Enums
 {
     public enum PerformersSortingTypes
-    {
-        ById,
+    {        
         ByName,
-        BySongCount,
-        ByIdBack,
+        BySongCount,        
         ByNameBack,
         BySongCountBack
     }

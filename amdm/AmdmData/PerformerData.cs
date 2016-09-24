@@ -16,17 +16,7 @@ namespace AmdmData
             
 
             switch (performersSortingType)
-            {
-                case PerformersSortingTypes.ById:
-                    performersContext = performersContext.OrderBy(x => x.Id)
-                        .Skip((performersPageNumber - 1) * pageSize)
-                        .Take(pageSize);
-                    break;
-                case PerformersSortingTypes.ByIdBack:
-                    performersContext = performersContext.OrderByDescending(x => x.Id)
-                        .Skip((performersPageNumber - 1) * pageSize)
-                        .Take(pageSize);
-                    break;
+            {               
                 case PerformersSortingTypes.ByName:
                     performersContext = performersContext.OrderBy(x => x.Name)
                         .Skip((performersPageNumber - 1) * pageSize)
@@ -58,23 +48,13 @@ namespace AmdmData
         }
         public static Performers GetPerformerById(int performerId)
         {
-            return db.Performers.SingleOrDefault(x => x.Id == performerId);
+            return db.Performers.Find(performerId);
         }
         public static List<Songs> GetPageOfSongList(int performerId, SongsSortingTypes songsSortingType, int songPageNumber, int pageSize)
         {
             var songs = db.Songs.Where(x => x.PerformerId == performerId).AsQueryable();
             switch (songsSortingType)
-            {
-                case SongsSortingTypes.ById:
-                    songs = songs.OrderBy(x => x.Id)
-                        .Skip((songPageNumber - 1) * pageSize)
-                        .Take(pageSize);
-                    break;
-                case SongsSortingTypes.ByIdBack:
-                    songs = songs.OrderByDescending(x => x.Id)
-                        .Skip((songPageNumber - 1) * pageSize)
-                        .Take(pageSize);
-                    break;
+            {               
                 case SongsSortingTypes.ByName:
                     songs = songs.OrderBy(x => x.Name)
                         .Skip((songPageNumber - 1) * pageSize)
@@ -116,8 +96,17 @@ namespace AmdmData
         {
             return db.Songs.Find(songId); 
         }
+        public static int GetSongsCount(int performerId)
+        {
+            return db.Songs.Where(x => x.PerformerId == performerId).Count();
+        }
+        public static string GetPerformerNameById(int performerId)
+        {
+            return db.Performers.Find(performerId).Name;
+        }
        
 
-        
+
+
     }
 }

@@ -26,5 +26,17 @@ namespace AmdmLogic
         {
             return PerformerData.GetPageOfSongList(performerId, songsSortingType, songPageNumber, pageSize);
         }
+        public static int GetSongsCount(int performerId)
+        {
+            return PerformerData.GetSongsCount(performerId);
+        }
+        public static string GetPerformerNameById(int performerId)
+        {
+            return PerformerData.GetPerformerNameById(performerId);
+        }
+        public static Songs GetSongById(int songId)
+        {
+            return PerformerData.GetSongById(songId);
+        }
     }
 }

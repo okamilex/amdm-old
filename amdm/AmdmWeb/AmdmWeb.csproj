@@ -211,6 +211,9 @@
     <Compile Include="Models\Performer\PerformerModel.cs" />
     <Compile Include="Models\Performer\PerformerPageModel.cs" />
     <Compile Include="Models\Performer\SongInPerformeModel.cs" />
+    <Compile Include="Models\Song\SongEditModel.cs" />
+    <Compile Include="Models\Song\SongModel.cs" />
+    <Compile Include="Models\Song\SongPageModel.cs" />
     <Compile Include="Models\SortAndPageData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -276,15 +279,16 @@
     <Content Include="Views\Shared\Lockout.cshtml" />
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Song\Song.cshtml" />
-    <Content Include="Views\Song\NextSong.cshtml" />
-    <Content Include="Views\Song\PrevSong.cshtml" />
     <Content Include="Views\Performer\SongsPage.cshtml" />
     <Content Include="Views\Performer\Performer.cshtml" />
     <Content Include="Views\Home\PerformersPage.cshtml" />
+    <Content Include="Views\Song\GetSong.cshtml" />
+    <Content Include="Views\Song\EditSong.cshtml" />
+    <Content Include="Views\Song\SaveSong.cshtml" />
+    <Content Include="Views\Song\CloseEditSong.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\Song\" />
     <Folder Include="Services\" />
     <Folder Include="Сonst\" />
   </ItemGroup>
