@@ -1,17 +1,19 @@
-﻿<script>
+﻿@model AmdmWeb.Models.Song.SongPageModel
+<script>
     $(document).ready(function () {
         debugger;
-            $("#myBtn").click(function () {
-                window.location.href='@Url.Action("SongEditPage", "Song", new { songId = Model.Id })';                                
+        $("#myBtn").click(function () {
+            debugger;
+                window.location.href='@Url.Action("SongEditPage", "Song", new { songId = Model.Song.Id, s = Model.SortAndPageData.SongsSortingType })';                                
             });
         });
 </script>
 <div>
     <h2>
-        <a href="@Model.SongPageLink">@Model.Name <span class="badge">@Model.Views</span></a>
+        <a href="@Model.Song.SongPageLink">@Model.Song.Name <span class="badge">@Model.Song.Views</span></a>
 
 
-        <a  href="@Model.VideoLink"><span class="glyphicon glyphicon-film" aria-hidden="true"></span></a>
+        <a  href="@Model.Song.VideoLink"><span class="glyphicon glyphicon-film" aria-hidden="true"></span></a>
         <a class="pull-right btn-link" ><pre>     </pre></a>
         <button type="button" class="btn btn-link btn-lg pull-right" id="myBtn"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
     </h2>
@@ -21,12 +23,12 @@
     <table class="table table-striped">
         <tr>
             <td class="col-md-6">
-                <pre>@Model.Text</pre>
+                <pre>@Model.Song.Text</pre>
             </td>
             <td class="col-md-6">
                 <div class="container">
                     <div class="row">
-                        @foreach (var chord in Model.Chords)
+                        @foreach (var chord in Model.Song.Chords)
                         {
                             <div class="panel panel-info col-md-4">
                                 <div class="panel-heading">@chord.Name</div>

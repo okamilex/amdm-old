@@ -110,7 +110,7 @@
             pager: false,
             adaptiveHeight: true,
             onSliderLoad: function(currentIndex){
-                debugger;
+               
                 var ajaxURL = '@Url.Action("SongInfo","Song")';
                 $.ajax({
                     type: "Get",
@@ -143,13 +143,14 @@
                     data: { performerId: id, s: sortType, songNumber: number },
                     dataType: 'html',
                     success: function (data) {
-                        debugger;
+                        
                         var h = $('#divf').html();
                         $('#divf').html(data);
                         var current1 = slider.getCurrentSlide();
                         slider.goToPrevSlide();
                         var current3= slider.getCurrentSlide();
                         $('#divf').html(data);
+                        history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
                     }
                 });
             }
@@ -162,13 +163,14 @@
                         data: { performerId: id, s: sortType, songNumber: number },
                         dataType: 'html',
                         success: function (data) {
-                            debugger;
+                            
                             var h = $('#divs').html();
                             $('#divs').html(data);
                             //slider.goToPrevSlide();
                             //slider.goToPrevSlide();
                             slider.goToSlide(1);   
                             $('#divs').html(data);
+                            history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
                         }
                     });
                 }
@@ -208,13 +210,14 @@
                     data: { performerId: id, s: sortType, songNumber: number },
                     dataType: 'html',
                     success: function (data) {
-                        debugger;
+                        
                         var h = $('#divf').html();
                         $('#divf').html(data);
                         slider.goToSlide(0);                     
                         //slider.goToNextSlide();
                         //slider.goToNextSlide();
                         $('#divf').html(data);
+                        history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
                     }
                 });
             }
@@ -227,13 +230,14 @@
                         data: { performerId: id, s: sortType, songNumber: number },
                         dataType: 'html',
                         success: function (data) {
-                            debugger;
+                            
                             var h = $('#divs').html();
                             $('#divs').html(data);
                             var current1 = slider.getCurrentSlide();
                             slider.goToNextSlide();
                             var current3 = slider.getCurrentSlide();
                             $('#divs').html(data);
+                            history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
                         }
                     });
                 }

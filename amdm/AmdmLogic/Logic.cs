@@ -46,7 +46,15 @@ namespace AmdmLogic
         {
             var song = PerformerData.GetSongById(songId);
             var list = PerformerData.GetPageOfSongList((int)song.PerformerId, s, 1, PerformerData.GetSongsCount((int)song.PerformerId));
-            return list.FindIndex(x => x.Id == songId);            
+            return list.FindIndex(x => x.Id == songId)+1;            
+        }
+        public static Chords GetChord(string name)
+        {
+            return PerformerData.GetChord(name);
+        }
+        public static List<Chords> GetChords(string s)
+        {         
+            return PerformerData.GetChords(s);
         }
     }
 }

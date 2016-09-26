@@ -26,6 +26,7 @@ namespace AmdmWeb.Controllers
                 Id = song.Id,
                 Name = song.Name,
                 Text = song.Text,
+                PerformerId = (int)song.PerformerId,
                 Number = Logic.GetNumber(songId, s),
                 Chords = "",
                 SongsSortingType = s
@@ -107,8 +108,29 @@ namespace AmdmWeb.Controllers
         [HttpGet]
         public ActionResult SongInfo(int performerId = 1, SongsSortingTypes s = SongsSortingTypes.ByName, int songNumber = 1)
         {
-            var song = Logic.GetPageOfSongList(performerId, s, songNumber, 1).First();            
-            return PartialView(song);
+            var song = Logic.GetPageOfSongList(performerId, s, songNumber, 1).First();
+            var songModel = new SongModel
+            {
+                Id = song.Id,
+                Number = songNumber,
+                Name = song.Name,
+                Chords = song.Chords.ToList(),
+                PerformerId = (int)song.PerformerId,
+                SongPageLink = song.SongPageLink,
+                Text = song.Text,
+                VideoLink = song.VideoLink,
+                Views = song.Views
+            };
+            SortAndPageData sortAndPageData = new SortAndPageData
+            {
+                SongsSortingType = s
+            };
+            SongPageModel songPageModel = new SongPageModel
+            {
+                Song = songModel,
+                SortAndPageData = sortAndPageData
+            };
+            return PartialView(songPageModel);
         }
 
 
@@ -141,8 +163,9 @@ namespace AmdmWeb.Controllers
         [HttpPost]
         public ActionResult SaveSong(SongEditModel model)
         {
+            
             PerformerData.EditSong(model.Id, model.Name, model.Text, model.Chords);
-            return PartialView();
+            return PartialView(model);
         }
         
     }

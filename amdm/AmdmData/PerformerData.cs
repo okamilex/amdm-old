@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+
 namespace AmdmData
 {
     public class PerformerData
@@ -114,19 +115,45 @@ namespace AmdmData
 
         public static bool EditSong(int id, string name, string text, string chords)
         {
-            using (var context = new AmdmContext())
+            using (var context = db)
             {
                 context.SaveChanges();
-                var chordsList = chords.Split(',').ToList();
+                
                 var song = context.Songs.Find(id);
-                song.Chords = new List<Chords>();
+                song.Chords = GetChords(chords);
                 song.Name = name;
-                song.Text = text;
-                chordsList.ForEach(x => song.Chords.Add(context.Chords.SingleOrDefault(y => y.Name == x)));
-
+                song.Text = text;              
+                
                 context.SaveChanges();
-                return true;
             }
+            var ch = new AmdmContext().Songs.Find(id);
+            return true;            
+        }
+
+        public static Chords GetChord(string name)
+        {
+            return db.Chords.FirstOrDefault(x => x.Name == name);
+        }
+
+        public static List<Chords> GetChords(string s)
+        {
+            var chordsNamesList = s.Split(',').ToList();
+            var chordsList = db.Chords
+                .Where(x =>
+                Check(x.Name, chordsNamesList));
+            return chordsList.ToList();
+        }
+        public static bool Check(string name, List<string> chords)
+        {
+            bool r = false;
+            chords.ForEach(x => 
+            {
+                if (x == name)
+                {
+                    r = true;
+                }
+            });
+            return r;
         }
 
 
