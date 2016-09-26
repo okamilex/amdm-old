@@ -42,5 +42,11 @@ namespace AmdmLogic
         {
             return PerformerData.GetAllChords();
         }
+        public static int GetNumber(int songId, SongsSortingTypes s)
+        {
+            var song = PerformerData.GetSongById(songId);
+            var list = PerformerData.GetPageOfSongList((int)song.PerformerId, s, 1, PerformerData.GetSongsCount((int)song.PerformerId));
+            return list.FindIndex(x => x.Id == songId);            
+        }
     }
 }

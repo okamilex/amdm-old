@@ -18,7 +18,7 @@ namespace AmdmWeb.Controllers
             return View();
         }
 
-        public ActionResult SongEditPage(int songId)
+        public ActionResult SongEditPage(int songId, SongsSortingTypes s = SongsSortingTypes.ByName)
         {
             var song = Logic.GetSongById(songId);
             SongEditModel songEditModel = new SongEditModel
@@ -26,9 +26,12 @@ namespace AmdmWeb.Controllers
                 Id = song.Id,
                 Name = song.Name,
                 Text = song.Text,
-                Chords = ""
+                Number = Logic.GetNumber(songId, s),
+                Chords = "",
+                SongsSortingType = s
             };
             song.Chords.ToList().ForEach(x => songEditModel.Chords = songEditModel.Chords + x.Name + ",");
+            
             if (songEditModel.Chords.Length > 0)
             {
                 songEditModel.Chords = songEditModel.Chords.Substring(0, songEditModel.Chords.Length - 1);

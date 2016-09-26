@@ -1,19 +1,18 @@
 ﻿<script>
-        $(document).ready(function () {
+    $(document).ready(function () {
+        debugger;
             $("#myBtn").click(function () {
-                window.location.href='@Url.Action("SongEditPage", "Song", new { songId = Model.Id })';
-                debugger;
-                
+                window.location.href='@Url.Action("SongEditPage", "Song", new { songId = Model.Id })';                                
             });
         });
-
 </script>
 <div>
     <h2>
         <a href="@Model.SongPageLink">@Model.Name <span class="badge">@Model.Views</span></a>
 
 
-        <a class="pull-right" href="@Model.VideoLink"><span class="glyphicon glyphicon-film" aria-hidden="true"></span></a>
+        <a  href="@Model.VideoLink"><span class="glyphicon glyphicon-film" aria-hidden="true"></span></a>
+        <a class="pull-right btn-link" ><pre>     </pre></a>
         <button type="button" class="btn btn-link btn-lg pull-right" id="myBtn"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
     </h2>
     <div id="myModal" class="modal fade" role="dialog"></div>

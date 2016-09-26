@@ -1,4 +1,5 @@
-﻿using System;
+﻿using AmdmData.Enums;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -15,6 +16,7 @@ namespace AmdmWeb.Models.Song
         public string VideoLink { get; set; }
         public int PerformerId { get; set; }
         public string Chords { get; set; }
-        public string AllChords { get; set; }        
+        public int Number { get; set; }
+        public SongsSortingTypes SongsSortingType { get; set; }
     }
 }

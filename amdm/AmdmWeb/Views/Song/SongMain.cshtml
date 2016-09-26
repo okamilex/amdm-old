@@ -96,14 +96,16 @@
                 $('#header').html(data);
             },
             replace: header
-        });
-        
+        });      
 
 
 
 
 
         slider = $('.bxslider').bxSlider({
+            minSlides: 1,
+            maxSlides: 1,
+            mode: 'vertical',
             controls: false,
             pager: false,
             adaptiveHeight: true,
@@ -141,10 +143,12 @@
                     data: { performerId: id, s: sortType, songNumber: number },
                     dataType: 'html',
                     success: function (data) {
+                        debugger;
                         var h = $('#divf').html();
                         $('#divf').html(data);
+                        var current1 = slider.getCurrentSlide();
                         slider.goToPrevSlide();
-
+                        var current3= slider.getCurrentSlide();
                         $('#divf').html(data);
                     }
                 });
@@ -158,9 +162,12 @@
                         data: { performerId: id, s: sortType, songNumber: number },
                         dataType: 'html',
                         success: function (data) {
+                            debugger;
                             var h = $('#divs').html();
                             $('#divs').html(data);
-                            slider.goToSlide(1);
+                            //slider.goToPrevSlide();
+                            //slider.goToPrevSlide();
+                            slider.goToSlide(1);   
                             $('#divs').html(data);
                         }
                     });
@@ -201,10 +208,12 @@
                     data: { performerId: id, s: sortType, songNumber: number },
                     dataType: 'html',
                     success: function (data) {
+                        debugger;
                         var h = $('#divf').html();
                         $('#divf').html(data);
-                        slider.goToSlide(0);
-
+                        slider.goToSlide(0);                     
+                        //slider.goToNextSlide();
+                        //slider.goToNextSlide();
                         $('#divf').html(data);
                     }
                 });
@@ -218,9 +227,12 @@
                         data: { performerId: id, s: sortType, songNumber: number },
                         dataType: 'html',
                         success: function (data) {
+                            debugger;
                             var h = $('#divs').html();
                             $('#divs').html(data);
+                            var current1 = slider.getCurrentSlide();
                             slider.goToNextSlide();
+                            var current3 = slider.getCurrentSlide();
                             $('#divs').html(data);
                         }
                     });
