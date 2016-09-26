@@ -5,9 +5,9 @@ using Microsoft.Owin;
 using Microsoft.Owin.Security.Cookies;
 using Microsoft.Owin.Security.Google;
 using Owin;
-using AmdmWeb.Models;
+using AMDM1.Models;
 
-namespace AmdmWeb
+namespace AMDM1
 {
     public partial class Startup
     {

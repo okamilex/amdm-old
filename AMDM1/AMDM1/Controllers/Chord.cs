@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace AmdmWeb.Controllers
+namespace AMDM1.Controllers
 {
     using System;
     using System.Collections.Generic;

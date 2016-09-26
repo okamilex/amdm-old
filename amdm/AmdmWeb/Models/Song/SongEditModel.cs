@@ -15,5 +15,6 @@ namespace AmdmWeb.Models.Song
         public string VideoLink { get; set; }
         public int PerformerId { get; set; }
         public string Chords { get; set; }
+        public string AllChords { get; set; }        
     }
 }

@@ -1,0 +1,44 @@
+﻿<script>
+        $(document).ready(function () {
+            $("#myBtn").click(function () {
+                window.location.href='@Url.Action("SongEditPage", "Song", new { songId = Model.Id })';
+                debugger;
+                
+            });
+        });
+
+</script>
+<div>
+    <h2>
+        <a href="@Model.SongPageLink">@Model.Name <span class="badge">@Model.Views</span></a>
+
+
+        <a class="pull-right" href="@Model.VideoLink"><span class="glyphicon glyphicon-film" aria-hidden="true"></span></a>
+        <button type="button" class="btn btn-link btn-lg pull-right" id="myBtn"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+    </h2>
+    <div id="myModal" class="modal fade" role="dialog"></div>
+
+
+    <table class="table table-striped">
+        <tr>
+            <td class="col-md-6">
+                <pre>@Model.Text</pre>
+            </td>
+            <td class="col-md-6">
+                <div class="container">
+                    <div class="row">
+                        @foreach (var chord in Model.Chords)
+                        {
+                            <div class="panel panel-info col-md-4">
+                                <div class="panel-heading">@chord.Name</div>
+                                <div class="panel-body">
+                                    <img src=@chord.ImageLink />
+                                </div>
+                            </div>
+                        }
+                    </div>
+                </div>
+            </td>
+        </tr>
+    </table>
+    </div>

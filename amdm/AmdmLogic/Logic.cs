@@ -38,5 +38,9 @@ namespace AmdmLogic
         {
             return PerformerData.GetSongById(songId);
         }
+        public static string GetAllChords()
+        {
+            return PerformerData.GetAllChords();
+        }
     }
 }

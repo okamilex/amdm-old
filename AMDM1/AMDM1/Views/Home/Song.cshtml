@@ -1,4 +1,4 @@
-﻿@model AmdmWeb.Controllers.Song
+﻿@model AMDM1.Controllers.Song
 @{
     ViewBag.Title = "Song";
 }
@@ -111,10 +111,13 @@
                                 <div class="row">
                                     @foreach (var chord in Model.Chords)
                                     {
-                                        <div class="col-xs-4">
-                                            <h6>@chord.Name</h6>
-                                            <img src=@chord.ImageLink />
+                                        <div class="panel panel-info">
+                                            <div class="panel-heading">@chord.Name</div>
+                                            <div class="panel-body">
+                                                <img src=@chord.ImageLink />
+                                            </div>
                                         </div>
+                                        
                                     }
                                 </div>
                             </div>

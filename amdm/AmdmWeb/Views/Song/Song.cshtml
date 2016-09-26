@@ -2,12 +2,15 @@
 @{
     ViewBag.Title = "Song";
 }
+
 <script>
+    
+    
     window.onload = Run;
     function Run() {
-        debugger;
+        
         var url = window.location.href;
-        var ajaxURL = '@Url.Action("GetSong","Song")';
+        var ajaxURL = '@Url.Action("SongMain","Song")';
         var splitedURL = url.split("=");
         if (splitedURL.length > 2) {
             var id = splitedURL[1].split("&")[0];
@@ -26,6 +29,7 @@
         }
 
         history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
+        
 
         $.ajax({
             type: "Get",
@@ -33,7 +37,7 @@
             data: { performerId: id, s: sortType, songNumber: number },
             dataType: 'html',
             success: function (data) {
-                debugger;
+                
                 $('#song').html(data);
             },
             replace: song
@@ -44,4 +48,6 @@
 </script>
 
 <div id="song"></div>
+
+
 

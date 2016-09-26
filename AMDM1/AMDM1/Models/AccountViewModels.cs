@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
-namespace AmdmWeb.Models
+namespace AMDM1.Models
 {
     public class ExternalLoginConfirmationViewModel
     {

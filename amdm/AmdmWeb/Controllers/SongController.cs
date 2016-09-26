@@ -18,7 +18,59 @@ namespace AmdmWeb.Controllers
             return View();
         }
 
-        
+        public ActionResult SongEditPage(int songId)
+        {
+            var song = Logic.GetSongById(songId);
+            SongEditModel songEditModel = new SongEditModel
+            {
+                Id = song.Id,
+                Name = song.Name,
+                Text = song.Text,
+                Chords = ""
+            };
+            song.Chords.ToList().ForEach(x => songEditModel.Chords = songEditModel.Chords + x.Name + ",");
+            if (songEditModel.Chords.Length > 0)
+            {
+                songEditModel.Chords = songEditModel.Chords.Substring(0, songEditModel.Chords.Length - 1);
+            }
+            return View(songEditModel);
+        }
+
+        [HttpGet]
+        public ActionResult SongMain(int performerId = 1, SongsSortingTypes s = SongsSortingTypes.ByName, int songNumber = 1)
+        {
+            var song = Logic.GetPageOfSongList(performerId, s, songNumber, 1).First();
+            var songModel = new SongModel
+            {
+                Id = song.Id,
+                Number = songNumber,
+                Name = song.Name,
+                Chords = song.Chords.ToList(),
+                PerformerId = (int)song.PerformerId,
+                SongPageLink = song.SongPageLink,
+                Text = song.Text,
+                VideoLink = song.VideoLink,
+                Views = song.Views
+            };
+            SortAndPageData sortAndPageData = new SortAndPageData
+            {
+                LasPageNumber = Logic.GetSongsCount(performerId),
+                SongsSortingType = s
+            };
+            SongPageModel songPageModel = new SongPageModel
+            {
+                Song = songModel,
+                BackPage = songNumber / Const.PageSize + 1,
+                SortAndPageData = sortAndPageData,
+                PerfoemerName = song.Performers.Name
+            };
+            return PartialView(songPageModel);
+        }
+
+
+/////////////////////////////////////////////////////////////////////////////
+
+
         [HttpGet]
         public ActionResult GetSong(int performerId = 1, SongsSortingTypes s = SongsSortingTypes.ByName, int songNumber = 1)
         {
@@ -43,12 +95,22 @@ namespace AmdmWeb.Controllers
             SongPageModel songPageModel = new SongPageModel
             {
                 Song = songModel,
-                BackPage = songNumber / Const.PageSize,
+                BackPage = songNumber / Const.PageSize + 1,
                 SortAndPageData = sortAndPageData,
                 PerfoemerName = song.Performers.Name
             };
             return PartialView(songPageModel);
         }
+        [HttpGet]
+        public ActionResult SongInfo(int performerId = 1, SongsSortingTypes s = SongsSortingTypes.ByName, int songNumber = 1)
+        {
+            var song = Logic.GetPageOfSongList(performerId, s, songNumber, 1).First();            
+            return PartialView(song);
+        }
+
+
+/// /////////////////////////////////////////////////////////////////////
+
 
         [HttpGet]
         public ActionResult EditSong(int songId)
@@ -59,7 +121,7 @@ namespace AmdmWeb.Controllers
                 Id = song.Id,
                 Name = song.Name,
                 Text = song.Text,
-                Chords = ""             
+                Chords = ""                            
             };
             song.Chords.ToList().ForEach(x => songEditModel.Chords = songEditModel.Chords + x.Name + ",");
             if (songEditModel.Chords.Length > 0)
@@ -76,7 +138,9 @@ namespace AmdmWeb.Controllers
         [HttpPost]
         public ActionResult SaveSong(SongEditModel model)
         {
+            PerformerData.EditSong(model.Id, model.Name, model.Text, model.Chords);
             return PartialView();
         }
+        
     }
 }

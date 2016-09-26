@@ -52,7 +52,7 @@ namespace AmdmData
         }
         public static List<Songs> GetPageOfSongList(int performerId, SongsSortingTypes songsSortingType, int songPageNumber, int pageSize)
         {
-            var songs = db.Songs.Where(x => x.PerformerId == performerId).AsQueryable();
+            var songs = new AmdmContext().Songs.Where(x => x.PerformerId == performerId).AsQueryable();
             switch (songsSortingType)
             {               
                 case SongsSortingTypes.ByName:
@@ -104,7 +104,30 @@ namespace AmdmData
         {
             return db.Performers.Find(performerId).Name;
         }
-       
+        public static string GetAllChords()
+        {
+            string s = "[";
+            db.Chords.ToList().ForEach(x => s = s + ", { value: '" + x.Name + "'}");
+            s = s + "],";
+            return s;
+        }
+
+        public static bool EditSong(int id, string name, string text, string chords)
+        {
+            using (var context = new AmdmContext())
+            {
+                context.SaveChanges();
+                var chordsList = chords.Split(',').ToList();
+                var song = context.Songs.Find(id);
+                song.Chords = new List<Chords>();
+                song.Name = name;
+                song.Text = text;
+                chordsList.ForEach(x => song.Chords.Add(context.Chords.SingleOrDefault(y => y.Name == x)));
+
+                context.SaveChanges();
+                return true;
+            }
+        }
 
 
 

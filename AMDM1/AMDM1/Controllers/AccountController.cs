@@ -8,9 +8,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
-using AmdmWeb.Models;
+using AMDM1.Models;
 
-namespace AmdmWeb.Controllers
+namespace AMDM1.Controllers
 {
     [Authorize]
     public class AccountController : Controller

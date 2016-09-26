@@ -1,0 +1,246 @@
+﻿@model AmdmWeb.Models.Song.SongPageModel
+
+
+<script src="~/Scripts/jquery.bxslider.min.js"></script>
+<link href="~/Content/jquery.bxslider.css" rel="stylesheet" />
+
+<div id="header"></div>
+
+<span class="left carousel-control" id="slider-prev"></span>
+<span class="right carousel-control" id="slider-next"></span>
+
+<ul class="bxslider" id="bxslider">
+    <li id="Lif">
+        <div id="divf">
+            <div>
+                <h2>
+                    <a href="@Model.Song.SongPageLink">@Model.Song.Name <span class="badge">@Model.Song.Views</span></a>
+
+
+                    <a class="pull-right" href="@Model.Song.VideoLink"><span class="glyphicon glyphicon-film" aria-hidden="true"></span></a>
+                    <button type="button" class="btn btn-link btn-lg pull-right" id="myBtn"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                </h2>
+                <div id="myModal" class="modal fade" role="dialog"></div>
+
+
+                <table class="table table-striped">
+                    <tr>
+                        <td class="col-md-6">
+                            <pre>@Model.Song.Text</pre>
+                        </td>
+                        <td class="col-md-6">
+                            <div class="container">
+                                <div class="row">
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </li>
+    <li id="Lis">
+        <div id="divs">
+            <div>
+                <h2>
+                    <a href="@Model.Song.SongPageLink">@Model.Song.Name <span class="badge">@Model.Song.Views</span></a>
+
+
+                    <a class="pull-right" href="@Model.Song.VideoLink"><span class="glyphicon glyphicon-film" aria-hidden="true"></span></a>
+                    <button type="button" class="btn btn-link btn-lg pull-right" id="myBtn"> <span class="glyphicon glyphicon-edit" aria-hidden="true"></span></button>
+                </h2>
+                <div id="myModal" class="modal fade" role="dialog"></div>
+
+
+                <table class="table table-striped">
+                    <tr>
+                        <td class="col-md-6">
+                            <pre>@Model.Song.Text</pre>
+                        </td>
+                        <td class="col-md-6">
+                            <div class="container">
+                                <div class="row">
+
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+    </li>
+    <li id="Lit">
+        <div id="divt">
+
+        </div>
+    </li>
+</ul>
+
+
+<script>
+    $(document).ready(function () {
+
+        var ajaxURL = '@Url.Action("GetSong","Song")';
+        id = @Model.Song.PerformerId;
+        sortType = "@Model.SortAndPageData.SongsSortingType";
+        number = @Model.Song.Number;
+        count = @Model.SortAndPageData.LasPageNumber;
+        $.ajax({
+            type: "Get",
+            url: ajaxURL,
+            data: { performerId: id, s: sortType, songNumber: number },
+            dataType: 'html',
+            success: function (data) {
+
+                $('#header').html(data);
+            },
+            replace: header
+        });
+        
+
+
+
+
+
+        slider = $('.bxslider').bxSlider({
+            controls: false,
+            pager: false,
+            adaptiveHeight: true,
+            onSliderLoad: function(currentIndex){
+                debugger;
+                var ajaxURL = '@Url.Action("SongInfo","Song")';
+                $.ajax({
+                    type: "Get",
+                    url: ajaxURL,
+                    data: { performerId: id, s: sortType, songNumber: number },
+                    dataType: 'html',
+                    success: function (data) {
+                        $('#divf').html(data);
+                    }
+                });
+            }
+        });
+        $('#slider-prev').click(function(){
+            var oldSlide = slider.getCurrentSlide();
+            var newSlide = 1 - oldSlide;
+            var ajaxURL = '@Url.Action("SongInfo","Song")';
+            if(number > 1)
+            {
+                number--;
+            }
+            else
+            {
+                number = count;
+            }
+            if (newSlide == 0)
+            {
+                $.ajax({
+                    type: "Get",
+                    url: ajaxURL,
+                    data: { performerId: id, s: sortType, songNumber: number },
+                    dataType: 'html',
+                    success: function (data) {
+                        var h = $('#divf').html();
+                        $('#divf').html(data);
+                        slider.goToPrevSlide();
+
+                        $('#divf').html(data);
+                    }
+                });
+            }
+            else
+            {
+                {
+                    $.ajax({
+                        type: "Get",
+                        url: ajaxURL,
+                        data: { performerId: id, s: sortType, songNumber: number },
+                        dataType: 'html',
+                        success: function (data) {
+                            var h = $('#divs').html();
+                            $('#divs').html(data);
+                            slider.goToSlide(1);
+                            $('#divs').html(data);
+                        }
+                    });
+                }
+            }
+            var ajaxURL = '@Url.Action("GetSong","Song")';
+            $.ajax({
+                type: "Get",
+                url: ajaxURL,
+                data: { performerId: id, s: sortType, songNumber: number },
+                dataType: 'html',
+                success: function (data) {
+
+                    $('#header').html(data);
+                },
+                replace: header
+            });
+            return false;
+        });
+        $('#slider-next').click(function(){
+
+            var oldSlide = slider.getCurrentSlide();
+            var newSlide = 1 - oldSlide;
+            var ajaxURL = '@Url.Action("SongInfo","Song")';
+            if(number < count)
+            {
+                number++;
+            }
+            else
+            {
+                number = 1;
+            }
+            if (newSlide == 0)
+            {
+                $.ajax({
+                    type: "Get",
+                    url: ajaxURL,
+                    data: { performerId: id, s: sortType, songNumber: number },
+                    dataType: 'html',
+                    success: function (data) {
+                        var h = $('#divf').html();
+                        $('#divf').html(data);
+                        slider.goToSlide(0);
+
+                        $('#divf').html(data);
+                    }
+                });
+            }
+            else
+            {
+                {
+                    $.ajax({
+                        type: "Get",
+                        url: ajaxURL,
+                        data: { performerId: id, s: sortType, songNumber: number },
+                        dataType: 'html',
+                        success: function (data) {
+                            var h = $('#divs').html();
+                            $('#divs').html(data);
+                            slider.goToNextSlide();
+                            $('#divs').html(data);
+                        }
+                    });
+                }
+            }
+            var ajaxURL = '@Url.Action("GetSong","Song")';
+            $.ajax({
+                type: "Get",
+                url: ajaxURL,
+                data: { performerId: id, s: sortType, songNumber: number },
+                dataType: 'html',
+                success: function (data) {
+
+                    $('#header').html(data);
+                },
+                replace: header
+            });
+            return false;
+        });
+
+
+    });
+</script>

@@ -4,10 +4,8 @@
 }
 <br />
 
-<ol class="breadcrumb">
-    
-    <li>@Html.ActionLink("Main", "Index", "Home")</li>
-    
+<ol class="breadcrumb">    
+    <li>@Html.ActionLink("Main", "Index", "Home")</li>    
     <li class="active">@Model.Performer.Name</li>
 </ol>
 
@@ -16,7 +14,7 @@
 <script>
     window.onload = Run;
     function Run() {
-        debugger;
+        
         var url = window.location.href;
         var ajaxURL = '@Url.Action("SongsPage","Performer")';
         var splitedURL = url.split("=");
@@ -47,7 +45,7 @@
             data: { performerId: id, songSortingType: sortType, songPageNumber: page },
             dataType: 'html',
             success: function (data) {
-                debugger;
+                
                 $('#page').html(data);
             },
             replace: page
