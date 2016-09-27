@@ -45,7 +45,7 @@ namespace AmdmData
         }
         public static int GetPerformersCount()
         {
-            return db.Performers.Count();
+            return new AmdmContext().Performers.Count();
         }
         public static Performers GetPerformerById(int performerId)
         {
@@ -95,7 +95,7 @@ namespace AmdmData
         }
         public static Songs GetSongById(int songId)
         {
-            return db.Songs.Find(songId); 
+            return new AmdmContext().Songs.Find(songId); 
         }
         public static int GetSongsCount(int performerId)
         {
@@ -115,17 +115,21 @@ namespace AmdmData
 
         public static bool EditSong(int id, string name, string text, string chords)
         {
-            using (var context = db)
+            using (var context = new AmdmContext())
             {
                 context.SaveChanges();
                 
                 var song = context.Songs.Find(id);
-                song.Chords = GetChords(chords);
-                song.Chords = new List<Chords>();
-                var chordsList = chords.Split(',').ToList();
                 song.Name = name;
                 song.Text = text;
-                chordsList.ForEach(x => song.Chords.Add(context.Chords.SingleOrDefault(y => y.Name.Equals(x))));               
+
+                song.Chords = new List<Chords>();
+                var chordsNamesList = chords.Trim().Split(',').ToList();
+                chordsNamesList = chordsNamesList.Select(x => x.Trim()).ToList();
+                var chordsList = db.Chords.AsEnumerable().ToList();
+                var chordsListString = chordsList.Select(x => x.Name).ToList();
+                chordsNamesList = chordsListString.Intersect(chordsNamesList).ToList();
+                chordsNamesList.ForEach(x => song.Chords.Add(context.Chords.SingleOrDefault(y => y.Name.Equals(x))));               
                             
                 
                 context.SaveChanges();
@@ -142,9 +146,14 @@ namespace AmdmData
         public static List<Chords> GetChords(string s)
         {
             var chordsNamesList = s.Split(',').ToList();
+            var si = chordsNamesList.First();
+            var cho = chordsNamesList.Select(x => x = x.Substring(1, x.Length - 1)).ToList();
+            cho.Add(si);
             var chordsList = db.Chords.AsEnumerable().ToList();
+            var samName = chordsList.Select(x => x.Name).ToList();
+            var samName2 = samName.Intersect(cho).ToList(); 
             var chList = chordsList.Where(x =>
-                Check(x.Name, chordsNamesList));
+                Check(x.Name, samName2));
             
 
             return chList.ToList();

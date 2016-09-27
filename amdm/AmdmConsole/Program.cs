@@ -20,6 +20,7 @@ namespace AmdmConsole
                 var s = Logic.GetSongsCount(i);
                 logger.Trace("Performer "+i+" : "+s+" songs");
             }
+            
 
         }
     }

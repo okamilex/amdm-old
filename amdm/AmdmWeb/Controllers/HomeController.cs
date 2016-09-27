@@ -9,6 +9,7 @@ using AmdmWeb.Models.Home;
 using AmdmWeb.Models;
 using AmdmData.Enums;
 using AmdmData;
+using Microsoft.AspNet.SignalR;
 
 namespace AmdmWeb.Controllers
 {
@@ -27,6 +28,10 @@ namespace AmdmWeb.Controllers
         [HttpGet]
         public ActionResult PerformersPage(PerformersSortingTypes s  = PerformersSortingTypes.ByName, int page = 1)
         {
+            var context = GlobalHost.ConnectionManager.GetHubContext<MyHub>();
+                context.Clients.All.logged("hello world");
+            
+
             List<PerformerInHomeModel> performers = new List<PerformerInHomeModel>();
             Logic.GetPageOfPerformerList(s, page, Const.PageSize).ForEach(x => performers.Add(new PerformerInHomeModel { Name = x.Name, Id = x.Id, SongCount = x.Songs.Count, ImageLink = x.ImageLink }));
             SortAndPageData sortAndPageData = new SortAndPageData { PerformersPageNumber = page, LasPageNumber = Convert.ToInt32(Math.Ceiling(Logic.GetPerformersCount() / 10.0)), PerformersSortingType = s };

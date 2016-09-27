@@ -8,3 +8,7 @@ C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmLogic\bin\Debug\
 C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmLogic\obj\Debug\AmdmLogic.csprojResolveAssemblyReference.cache
 C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmLogic\obj\Debug\AmdmLogic.dll
 C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmLogic\obj\Debug\AmdmLogic.pdb
+C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmLogic\bin\Debug\Microsoft.Owin.dll
+C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmLogic\bin\Debug\Owin.dll
+C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmLogic\bin\Debug\Microsoft.Owin.xml
+C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmLogic\bin\Debug\ru\Microsoft.Owin.resources.dll
