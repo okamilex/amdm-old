@@ -4,45 +4,11 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title MyAMDM</title>
-    
+    <title>@ViewBag.Title MyAMDM</title>    
         @Styles.Render("~/Content/css")
         @Scripts.Render("~/bundles/modernizr")
         @Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")
-    @section Scripts {
-        <script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
-        <script src="~/signalr/hubs"></script>
-        <script src="@Url.Content("~/signalr/hubs")"></script>
-        }
-    
-    <script>
-        $(function () {
-
-            debugger;
-
-            // Ссылка на автоматически-сгенерированный прокси хаба
-            var chat = $.connection.myHub;
-            chat.client.logged = function (time) {
-
-                $('#alertDiv').append('<div class="alert alert-info fade in"> ' +
-            '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>' +
-            '<strong>Info!</strong> This alert box could indicate a neutral informative change or action.' +
-          '</div>');
-            };
-
-            $.connection.hub.start().done(function () {
-            });
-        });
-    </script>
-        
-
-    <!--<script src="~/Scripts/client-server.js"></script>-->
-
-
-
-
-
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">

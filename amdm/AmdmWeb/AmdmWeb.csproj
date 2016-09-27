@@ -205,6 +205,7 @@
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LogController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\PerformerController.cs" />
     <Compile Include="Controllers\SongController.cs" />
@@ -223,7 +224,7 @@
     <Compile Include="Models\Song\SongModel.cs" />
     <Compile Include="Models\Song\SongPageModel.cs" />
     <Compile Include="Models\SortAndPageData.cs" />
-    <Compile Include="Hubs\MyHub.cs" />
+    <Compile Include="Hubs\AmdmHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
   </ItemGroup>
@@ -322,6 +323,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Log\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff" />

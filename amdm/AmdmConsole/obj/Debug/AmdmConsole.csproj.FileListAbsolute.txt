@@ -79,3 +79,6 @@ C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmConsole\bin\Debu
 C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmConsole\bin\Debug\Newtonsoft.Json.xml
 C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmConsole\bin\Debug\Antlr3.Runtime.pdb
 C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmConsole\bin\Debug\ru\EntityFramework.SqlServer.resources.dll
+C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmConsole\bin\Debug\Microsoft.AspNet.SignalR.Core.dll
+C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmConsole\bin\Debug\Microsoft.AspNet.SignalR.Core.xml
+C:\Users\a2.volk\documents\visual studio 2015\Projects\Amdm\AmdmConsole\bin\Debug\ru\Microsoft.AspNet.SignalR.Core.resources.dll

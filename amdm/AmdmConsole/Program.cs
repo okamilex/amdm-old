@@ -6,6 +6,8 @@ using System.Threading.Tasks;
 using NLog;
 using AmdmLogic;
 using AmdmData;
+using Common;
+using System.Net;
 
 namespace AmdmConsole
 {
@@ -14,13 +16,14 @@ namespace AmdmConsole
         private static Logger logger = LogManager.GetCurrentClassLogger();
         static void Main(string[] args)
         {
-            int count = Logic.GetPerformersCount();
-            for (int i = 1; i <= count; i++)
-            {
-                var s = Logic.GetSongsCount(i);
-                logger.Trace("Performer "+i+" : "+s+" songs");
-            }
-            
+            var idList = Logic.GetPerformersId();
+            idList.ForEach(id => {
+                var s = Logic.GetSongsCount(id);
+                AmdmLogger.Trace("Performer " + id + " : " + s + " songs");
+            });            
+            var request = WebRequest.CreateHttp("http://localhost:49992/Log/Loged");
+            request.GetResponse();
+
 
         }
     }

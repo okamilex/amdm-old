@@ -5,16 +5,57 @@
 
 @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
 @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+<script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script src="~/Scripts/client-server.js"></script>
+<script>
+        $(function () {
+            
+
+
+            var count = @Model.SortAndPageData.LasPageNumber;
+            var url = window.location.href;
+            var ajaxURL = '@Url.Action("PerformersPage","Home")';
+            var splitedURL = url.split("=");
+            if (splitedURL.length > 1) {
+                var sortType = splitedURL[1].split("&")[0];
+                if (splitedURL.length > 2) {
+                    var page = splitedURL[2];
+                }
+                else {
+                    var page = "1";
+                }
+            }
+            else {
+                var sortType = "ByName";
+                var page = "1";
+            }
+            history.replaceState(null, null, '@Url.Action("Index", "Home")'+'Home?s=' + sortType + '&amp;page=' + page);
+            $.ajax({
+                type: "Get",
+                url: ajaxURL,
+                data: {s: sortType, page: page},
+                dataType: 'html',
+                success: function (data) {
+
+                    $('#test').html(data);
+                }
+
+            });
+
+        });
+</script>
 
 <ol class="breadcrumb">    
     <li class="active">Main</li>
 </ol>
+<input type="button" id="sendmessage" value="Отправить" />
 
 <script>
-    window.onload = Run;
+    //window.onload = Run;
     function Run() {
         var count = @Model.SortAndPageData.LasPageNumber;
-        
+
         var url = window.location.href;
         var ajaxURL = '@Url.Action("PerformersPage","Home")';
         var splitedURL = url.split("=");
@@ -38,7 +79,7 @@
             data: {s: sortType, page: page},
             dataType: 'html',
             success: function (data) {
-                
+
                 $('#test').html(data);
             }
 
