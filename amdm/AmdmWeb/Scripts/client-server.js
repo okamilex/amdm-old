@@ -9,9 +9,14 @@
     // Объявление функции, которая хаб вызывает при получении сообщений
     chat.client.addMessage = function (name, message) {
         debugger;
+        $('#alertDiv').append('<div class="alert alert-success">'+
+                                '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'+
+                                '<strong>' + name +'</strong>' + message + 
+                              '</div>'
+        );
+
         // Добавление сообщений на веб-страницу 
-        $('#alertDiv').append('<p><b>' + htmlEncode(name)
-            + '</b>: ' + htmlEncode(message) + '</p>');
+        //$('#alertDiv').append('<p><b>' + htmlEncode(name) + '</b>: ' + htmlEncode(message) + '</p>');
     };
 
     // Функция, вызываемая при подключении нового пользователя

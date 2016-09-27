@@ -5,13 +5,15 @@
 
 @Scripts.Render("~/scripts/jquery-1.10.2.min.js")
 @Scripts.Render("~/scripts/jquery.unobtrusive-ajax.min.js")
+<script src="~/Scripts/jquery.signalR-2.1.2.min.js"></script>
+<script src="~/signalr/hubs"></script>
+<script src="~/Scripts/client-server.js"></script>
 
-<script>
+<script>  
     
     
-    window.onload = Run;
-    function Run() {
-        
+    $(function () {
+
         var url = window.location.href;
         var ajaxURL = '@Url.Action("SongMain","Song")';
         var splitedURL = url.split("=");
@@ -32,7 +34,7 @@
         }
 
         history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
-        
+
 
         $.ajax({
             type: "Get",
@@ -40,17 +42,21 @@
             data: { performerId: id, s: sortType, songNumber: number },
             dataType: 'html',
             success: function (data) {
-                
+
                 $('#song').html(data);
             },
             replace: song
 
         });
-    }
+    });
 
 </script>
+<div id="alertDiv">
+
+</div>
 
 <div id="song"></div>
+
 
 
 

@@ -21,8 +21,9 @@ namespace AmdmConsole
                 var s = Logic.GetSongsCount(id);
                 AmdmLogger.Trace("Performer " + id + " : " + s + " songs");
             });            
-            var request = WebRequest.CreateHttp("http://localhost:49992/Log/Loged");
+            var request = WebRequest.CreateHttp("http://localhost:49992/Log/Loged?time="+ DateTime.Now.ToShortTimeString() +" "+ DateTime.Now.ToShortDateString());
             request.GetResponse();
+            
 
 
         }

@@ -10,10 +10,10 @@ namespace AmdmWeb.Controllers
     public class LogController : Controller
     {        
         [HttpGet]
-        public void Loged()
+        public void Loged(string time)
         {
             var context = GlobalHost.ConnectionManager.GetHubContext<AmdmHub>();
-            context.Clients.All.addMessage("name", "message");
+            context.Clients.All.addMessage("Updated! ", time);
         }
         
     }
