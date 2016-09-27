@@ -49,7 +49,7 @@ namespace AmdmData
         }
         public static Performers GetPerformerById(int performerId)
         {
-            return db.Performers.Find(performerId);
+            return new AmdmContext().Performers.Find(performerId);
         }
         public static List<Songs> GetPageOfSongList(int performerId, SongsSortingTypes songsSortingType, int songPageNumber, int pageSize)
         {
@@ -99,7 +99,7 @@ namespace AmdmData
         }
         public static int GetSongsCount(int performerId)
         {
-            return db.Songs.Where(x => x.PerformerId == performerId).Count();
+            return new AmdmContext().Songs.Where(x => x.PerformerId == performerId).Count();
         }
         public static string GetPerformerNameById(int performerId)
         {
@@ -121,8 +121,12 @@ namespace AmdmData
                 
                 var song = context.Songs.Find(id);
                 song.Chords = GetChords(chords);
+                song.Chords = new List<Chords>();
+                var chordsList = chords.Split(',').ToList();
                 song.Name = name;
-                song.Text = text;              
+                song.Text = text;
+                chordsList.ForEach(x => song.Chords.Add(context.Chords.SingleOrDefault(y => y.Name.Equals(x))));               
+                            
                 
                 context.SaveChanges();
             }
@@ -138,17 +142,19 @@ namespace AmdmData
         public static List<Chords> GetChords(string s)
         {
             var chordsNamesList = s.Split(',').ToList();
-            var chordsList = db.Chords
-                .Where(x =>
+            var chordsList = db.Chords.AsEnumerable().ToList();
+            var chList = chordsList.Where(x =>
                 Check(x.Name, chordsNamesList));
-            return chordsList.ToList();
+            
+
+            return chList.ToList();
         }
         public static bool Check(string name, List<string> chords)
         {
             bool r = false;
             chords.ForEach(x => 
             {
-                if (x == name)
+                if (x.Equals(name))
                 {
                     r = true;
                 }

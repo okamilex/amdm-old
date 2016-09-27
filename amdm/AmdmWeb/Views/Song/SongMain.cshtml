@@ -80,7 +80,7 @@
 
 <script>
     $(document).ready(function () {
-
+        debugger;
         var ajaxURL = '@Url.Action("GetSong","Song")';
         id = @Model.Song.PerformerId;
         sortType = "@Model.SortAndPageData.SongsSortingType";
@@ -96,12 +96,7 @@
                 $('#header').html(data);
             },
             replace: header
-        });      
-
-
-
-
-
+        });
         slider = $('.bxslider').bxSlider({
             minSlides: 1,
             maxSlides: 1,
@@ -110,7 +105,7 @@
             pager: false,
             adaptiveHeight: true,
             onSliderLoad: function(currentIndex){
-               
+
                 var ajaxURL = '@Url.Action("SongInfo","Song")';
                 $.ajax({
                     type: "Get",
@@ -124,6 +119,7 @@
             }
         });
         $('#slider-prev').click(function(){
+            debugger;
             var oldSlide = slider.getCurrentSlide();
             var newSlide = 1 - oldSlide;
             var ajaxURL = '@Url.Action("SongInfo","Song")';
@@ -143,7 +139,7 @@
                     data: { performerId: id, s: sortType, songNumber: number },
                     dataType: 'html',
                     success: function (data) {
-                        
+                        debugger;
                         var h = $('#divf').html();
                         $('#divf').html(data);
                         var current1 = slider.getCurrentSlide();
@@ -163,12 +159,12 @@
                         data: { performerId: id, s: sortType, songNumber: number },
                         dataType: 'html',
                         success: function (data) {
-                            
+                            debugger;
                             var h = $('#divs').html();
                             $('#divs').html(data);
                             //slider.goToPrevSlide();
                             //slider.goToPrevSlide();
-                            slider.goToSlide(1);   
+                            slider.goToSlide(1);
                             $('#divs').html(data);
                             history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
                         }
@@ -182,7 +178,6 @@
                 data: { performerId: id, s: sortType, songNumber: number },
                 dataType: 'html',
                 success: function (data) {
-
                     $('#header').html(data);
                 },
                 replace: header
@@ -190,7 +185,7 @@
             return false;
         });
         $('#slider-next').click(function(){
-
+            debugger;
             var oldSlide = slider.getCurrentSlide();
             var newSlide = 1 - oldSlide;
             var ajaxURL = '@Url.Action("SongInfo","Song")';
@@ -210,10 +205,10 @@
                     data: { performerId: id, s: sortType, songNumber: number },
                     dataType: 'html',
                     success: function (data) {
-                        
+                        debugger;
                         var h = $('#divf').html();
                         $('#divf').html(data);
-                        slider.goToSlide(0);                     
+                        slider.goToSlide(0);
                         //slider.goToNextSlide();
                         //slider.goToNextSlide();
                         $('#divf').html(data);
@@ -230,7 +225,7 @@
                         data: { performerId: id, s: sortType, songNumber: number },
                         dataType: 'html',
                         success: function (data) {
-                            
+                            debugger;
                             var h = $('#divs').html();
                             $('#divs').html(data);
                             var current1 = slider.getCurrentSlide();
