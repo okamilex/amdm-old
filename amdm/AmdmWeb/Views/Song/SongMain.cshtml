@@ -55,20 +55,28 @@
 </ul>
 
 
+
 <script>
     $(function () {
+        needRedraw = false;
+        function loop() {
+            if(needRedraw)
+            {
+                
+                slider.redrawSlider();
+                
+            }            
+            setTimeout(loop, 100);	
+        };
+        loop();
+       
         var ajaxURL = '@Url.Action("GetSong","Song")';
         id = @Model.Song.PerformerId;
         sortType = "@Model.SortAndPageData.SongsSortingType";
         number = @Model.Song.Number;
         count = @Model.SortAndPageData.LasPageNumber;
         oldSlide = number;
-        r = 0;
-        $(window).resize(function(){
-            debugger;
-            r = r + 1;
-            $("#alertDiv").append('resize' + r);
-        });
+        
         $.ajax({
             type: "Get",
             url: ajaxURL,
@@ -90,7 +98,7 @@
             startSlide: number,
             adaptiveHeight: true,
             onSliderLoad: function(currentIndex){
-                
+                needRedraw = true;   
                 var ajaxURL = '@Url.Action("SongInfo","Song")';
                 $.ajax({
                     type: "Get",
@@ -143,14 +151,14 @@
                                 dataType: 'html',
                                 success: function (data) {
                                     $('#'+number).html(data);
+                                    slider.redrawSlider();
                                 }
                             });
                         }
                     });
                     slider.goToSlide(number);
                     $('#d'+number).html(data);
-                    debugger;
-                    
+                    needRedraw = true;                
                     
                 }
             });
@@ -216,6 +224,7 @@
         }
 
         $('#slider-prev').click(function(){
+            needRedraw = false;
             oldSlide = number;
             if(number > 1)
             {
@@ -225,7 +234,7 @@
             {
                 number = count;
             }
-            slideFade();
+            //slideFade();
             oldSlide = number;
             if(number < count)
             {
@@ -235,7 +244,7 @@
             {
                 number = 1;
             }
-            slideFade();
+            //slideFade();
             oldSlide = number;
             if(number > 1)
             {
@@ -252,7 +261,7 @@
             return false;
         });
         $('#slider-next').click(function(){
-            debugger;
+            needRedraw = false;
             oldSlide = number;
             if(number < count)
             {
@@ -262,7 +271,7 @@
             {
                 number = 1;
             }            
-            slideFade();
+            //slideFade();
             oldSlide = number;
             if(number > 1)
             {
@@ -272,7 +281,7 @@
             {
                 number = count;
             } 
-            slideFade();
+            //slideFade();
             oldSlide = number;
             if(number < count)
             {
@@ -284,7 +293,7 @@
             }            
             slide();
             
-            setTimeout($(window).resize, 5000);  
+            
             header();
             return false;
         });
