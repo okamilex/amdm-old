@@ -1,9 +1,4 @@
 ﻿$(function () {
-
-   
-    
-
-    debugger;
     var chat = $.connection.amdmHub;    
     chat.client.addMessage = function (name, message) {
         debugger;
@@ -12,15 +7,8 @@
                                 '<strong>' + name +'</strong>' + message + 
                               '</div>'
         );        
-    };
-  
-    $.connection.hub.start().done(function () {
-
-       
-
-      
-       
-    });
+    };  
+    $.connection.hub.start().done(function () {});
 });
 
 

@@ -51,63 +51,24 @@
             </div>
         </div>
     </li>
-    <li id="Lis">
-        <div id="divs">
-            <div>
-                <h2 class="col-md-12">
-                    <a href="@Model.Song.SongPageLink">@Model.Song.Name <span class="badge">@Model.Song.Views</span></a>
-
-
-                    <a href="@Model.Song.VideoLink"><span class="glyphicon glyphicon-film" aria-hidden="true"></span></a>
-
-                    <a href="@Url.Action("SongEditPage", "Song", new { songId = Model.Song.Id, s = Model.SortAndPageData.SongsSortingType })"><span class="glyphicon glyphicon-pencil" aria-hidden="true"></span></a>
-
-                </h2>
-                <div id="myModal" class="modal fade" role="dialog"></div>
-
-
-                <table class="table table-striped">
-                    <tr>
-                        <td class="col-md-6">
-                            <pre>@Model.Song.Text</pre>
-                        </td>
-                        <td class="col-md-6">
-                            <div class="container">
-                                <div class="row">
-                                    @foreach (var chord in Model.Song.Chords)
-                                    {
-                                        <div class="panel panel-info col-md-5">
-                                            <div class="panel-heading">@chord.Name</div>
-                                            <div class="panel-body">
-                                                <img src="http://amdm.ru/images/chords/A_0.gif" />
-                                            </div>
-                                        </div>
-                                    }
-
-                                </div>
-                            </div>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div>
-    </li>
-    <li id="Lit">
-        <div id="divt">
-
-        </div>
-    </li>
+    
 </ul>
 
 
 <script>
     $(function () {
-        debugger;
         var ajaxURL = '@Url.Action("GetSong","Song")';
         id = @Model.Song.PerformerId;
         sortType = "@Model.SortAndPageData.SongsSortingType";
         number = @Model.Song.Number;
         count = @Model.SortAndPageData.LasPageNumber;
+        oldSlide = number;
+        r = 0;
+        $(window).resize(function(){
+            debugger;
+            r = r + 1;
+            $("#alertDiv").append('resize' + r);
+        });
         $.ajax({
             type: "Get",
             url: ajaxURL,
@@ -115,17 +76,21 @@
             dataType: 'html',
             success: function (data) {
                 $('#header').html(data);
-            },
-            replace: header
+            }
         });
+        for(var i = 1; i <= count + 3; i++)
+        {
+            $('#bxslider').append('<li id="li'+i+'"><div id="'+i+'"></div></li>');
+        }
+        $('#' + number).html($('#divf').html());
+
         slider = $('.bxslider').bxSlider({
-            minSlides: 1,
-            maxSlides: 1,
             controls: false,
             pager: false,
+            startSlide: number,
             adaptiveHeight: true,
             onSliderLoad: function(currentIndex){
-
+                
                 var ajaxURL = '@Url.Action("SongInfo","Song")';
                 $.ajax({
                     type: "Get",
@@ -133,16 +98,125 @@
                     data: { performerId: id, s: sortType, songNumber: number },
                     dataType: 'html',
                     success: function (data) {
-                        $('#divf').html(data);
+                        $('#'+number).html(data);
                     }
                 });
             }
         });
-        $('#slider-prev').click(function(){
-            debugger;
-            var oldSlide = slider.getCurrentSlide();
-            var newSlide = 1 - oldSlide;
+        header = function()
+        {
+            var ajaxURL = '@Url.Action("GetSong","Song")';
+            $.ajax({
+                type: "Get",
+                url: ajaxURL,
+                data: { performerId: id, s: sortType, songNumber: number },
+                dataType: 'html',
+                success: function (data) {
+                    $('#header').html(data);
+                    history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
+                }
+            });
+        };
+        slide = function()
+        {
             var ajaxURL = '@Url.Action("SongInfo","Song")';
+            $.ajax({
+                type: "Get",
+                url: ajaxURL,
+                data: { performerId: id, s: sortType, songNumber: number },
+                dataType: 'html',
+                success: function (data) {
+                    
+                    $('#d'+number).html(data);
+                    slider.reloadSlider({
+                        controls: false,
+                        pager: false,
+                        startSlide: oldSlide,
+                        adaptiveHeight: true,
+                        onSliderLoad: function(currentIndex){
+                            
+                            var ajaxURL = '@Url.Action("SongInfo","Song")';
+                            $.ajax({
+                                type: "Get",
+                                url: ajaxURL,
+                                data: { performerId: id, s: sortType, songNumber: number },
+                                dataType: 'html',
+                                success: function (data) {
+                                    $('#'+number).html(data);
+                                }
+                            });
+                        }
+                    });
+                    slider.goToSlide(number);
+                    $('#d'+number).html(data);
+                    debugger;
+                    
+                    
+                }
+            });
+        };
+        slideFade = function()
+        {
+            var ajaxURL = '@Url.Action("SongInfo","Song")';
+            $.ajax({
+                type: "Get",
+                url: ajaxURL,
+                data: { performerId: id, s: sortType, songNumber: number },
+                dataType: 'html',
+                success: function (data) {
+                    
+                    $('#d'+number).html(data);
+                    slider.reloadSlider({
+                        controls: false,
+                        pager: false,
+                        mode: 'fade',
+                        startSlide: oldSlide,
+                        adaptiveHeight: true,
+                        onSliderLoad: function(currentIndex){
+                            
+                            var ajaxURL = '@Url.Action("SongInfo","Song")';
+                            $.ajax({
+                                type: "Get",
+                                url: ajaxURL,
+                                data: { performerId: id, s: sortType, songNumber: number },
+                                dataType: 'html',
+                                success: function (data) {
+                                    $('#'+number).html(data);
+                                }
+                            });
+                        }
+                    });
+                    slider.goToSlide(number);
+                    $('#d'+number).html(data);
+
+                }
+            });
+        };
+        slidePause = function()
+        {
+            slider.reloadSlider({
+                controls: false,
+                pager: false,
+                startSlide: number,
+                adaptiveHeight: true,
+                onSliderLoad: function(currentIndex){
+                    debugger;
+                    var ajaxURL = '@Url.Action("SongInfo","Song")';
+                    $.ajax({
+                        type: "Get",
+                        url: ajaxURL,
+                        data: { performerId: id, s: sortType, songNumber: number },
+                        dataType: 'html',
+                        success: function (data) {
+                            $('#'+number).html(data);
+                        }
+                    });
+                }
+            });
+        }
+
+        $('#slider-prev').click(function(){
+            oldSlide = number;
             if(number > 1)
             {
                 number--;
@@ -151,64 +225,8 @@
             {
                 number = count;
             }
-            if (newSlide == 0)
-            {
-                $.ajax({
-                    type: "Get",
-                    url: ajaxURL,
-                    data: { performerId: id, s: sortType, songNumber: number },
-                    dataType: 'html',
-                    success: function (data) {
-                        debugger;
-                        var h = $('#divf').html();
-                        $('#divf').html(data);
-                        var current1 = slider.getCurrentSlide();
-                        slider.goToPrevSlide();
-                        var current3= slider.getCurrentSlide();
-                        $('#divf').html(data);
-                        history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
-                    }
-                });
-            }
-            else
-            {
-                {
-                    $.ajax({
-                        type: "Get",
-                        url: ajaxURL,
-                        data: { performerId: id, s: sortType, songNumber: number },
-                        dataType: 'html',
-                        success: function (data) {
-                            debugger;
-                            var h = $('#divs').html();
-                            $('#divs').html(data);
-                            //slider.goToPrevSlide();
-                            //slider.goToPrevSlide();
-                            slider.goToSlide(1);
-                            $('#divs').html(data);
-                            history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
-                        }
-                    });
-                }
-            }
-            var ajaxURL = '@Url.Action("GetSong","Song")';
-            $.ajax({
-                type: "Get",
-                url: ajaxURL,
-                data: { performerId: id, s: sortType, songNumber: number },
-                dataType: 'html',
-                success: function (data) {
-                    $('#header').html(data);
-                },
-                replace: header
-            });
-            return false;
-        });
-        $('#slider-next').click(function(){
-            debugger;
-            var oldSlide = slider.getCurrentSlide();
-            var newSlide = 1 - oldSlide;
-            var ajaxURL = '@Url.Action("SongInfo","Song")';
+            slideFade();
+            oldSlide = number;
             if(number < count)
             {
                 number++;
@@ -217,58 +235,57 @@
             {
                 number = 1;
             }
-            if (newSlide == 0)
+            slideFade();
+            oldSlide = number;
+            if(number > 1)
             {
-                $.ajax({
-                    type: "Get",
-                    url: ajaxURL,
-                    data: { performerId: id, s: sortType, songNumber: number },
-                    dataType: 'html',
-                    success: function (data) {
-                        debugger;
-                        var h = $('#divf').html();
-                        $('#divf').html(data);
-                        slider.goToSlide(0);
-                        //slider.goToNextSlide();
-                        //slider.goToNextSlide();
-                        $('#divf').html(data);
-                        history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
-                    }
-                });
+                number--;
             }
             else
             {
-                {
-                    $.ajax({
-                        type: "Get",
-                        url: ajaxURL,
-                        data: { performerId: id, s: sortType, songNumber: number },
-                        dataType: 'html',
-                        success: function (data) {
-                            debugger;
-                            var h = $('#divs').html();
-                            $('#divs').html(data);
-                            var current1 = slider.getCurrentSlide();
-                            slider.goToNextSlide();
-                            var current3 = slider.getCurrentSlide();
-                            $('#divs').html(data);
-                            history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
-                        }
-                    });
-                }
+                number = count;
+            }            
+            slide();
+            debugger;
+            
+            header();
+            return false;
+        });
+        $('#slider-next').click(function(){
+            debugger;
+            oldSlide = number;
+            if(number < count)
+            {
+                number++;
             }
-            var ajaxURL = '@Url.Action("GetSong","Song")';
-            $.ajax({
-                type: "Get",
-                url: ajaxURL,
-                data: { performerId: id, s: sortType, songNumber: number },
-                dataType: 'html',
-                success: function (data) {
-
-                    $('#header').html(data);
-                },
-                replace: header
-            });
+            else
+            {
+                number = 1;
+            }            
+            slideFade();
+            oldSlide = number;
+            if(number > 1)
+            {
+                number--;
+            }
+            else
+            {
+                number = count;
+            } 
+            slideFade();
+            oldSlide = number;
+            if(number < count)
+            {
+                number++;
+            }
+            else
+            {
+                number = 1;
+            }            
+            slide();
+            
+            setTimeout($(window).resize, 5000);  
+            header();
             return false;
         });
 
