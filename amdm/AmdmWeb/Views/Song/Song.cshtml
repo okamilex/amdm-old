@@ -9,11 +9,8 @@
 <script src="~/signalr/hubs"></script>
 <script src="~/Scripts/client-server.js"></script>
 
-<script>  
-    
-    
+<script> 
     $(function () {
-
         var url = window.location.href;
         var ajaxURL = '@Url.Action("SongMain","Song")';
         var splitedURL = url.split("=");
@@ -32,11 +29,7 @@
             var sortType = "ByName";
             var number = "1";
         }
-
-        history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number);
-
-
-        $.ajax({
+        history.replaceState(null, null, 'Song?performerId=' + id + '&amp;s=' + sortType + '&amp;songNumber=' + number); $.ajax({
             type: "Get",
             url: ajaxURL,
             data: { performerId: id, s: sortType, songNumber: number },
@@ -46,15 +39,12 @@
                 $('#song').html(data);
             },
             replace: song
-
         });
     });
-
 </script>
 <div id="alertDiv">
 
 </div>
-
 <div id="song"></div>
 
 
